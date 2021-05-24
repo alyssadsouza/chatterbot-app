@@ -1,0 +1,61 @@
+{% extends "chatbot/layout.html" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+
+  <div id="bot-msg" class="slide-in">
+    <h1 id="bot-msg-h1">Hello there!</h1>
+  </div>
+  <div id='user-input'>
+    <form>
+      <li><input type='text' id='text-box' name="userinput" autofocus></li>
+      <input type='submit' id='submit'>
+    </form>
+  </div>
+  
+  <script>
+
+    // function to change url, make sure it doesn't get altered by POST request
+    function ChangeUrl(title, url) {
+      if (typeof (history.pushState) != "undefined") {
+          var obj = { Title: title, Url: url };
+          history.pushState(obj, obj.Title, obj.Url);
+      } else {
+          alert("Browser does not support HTML5.");
+      }
+    }
+
+    // make POST request to update message, return bot reply
+    document.querySelector("form").onsubmit = function() {
+      fetch('/response', {
+      method: 'POST',
+      body: JSON.stringify({
+          message: document.querySelector("#text-box").value
+        })
+      })
+      .then(response => response.json())
+      .then(message => {
+        // update bot-msg HTML to display reply
+        var bot_msg_h1 = document.querySelector('#bot-msg-h1');
+        var bot_msg = document.querySelector("#bot-msg");
+        bot_msg_h1.innerHTML = message.reply;
+        
+        // remove and re-add class to trigger animation
+        var bot_class = bot_msg.classList;
+        bot_msg.classList.remove(bot_class);
+        void bot_msg.offsetWidth;
+        bot_msg.classList.add("fade-in");
+
+        // reset input field to empty
+        document.querySelector("#text-box").value = ''
+        // prevent url from getting altered
+        ChangeUrl("Welcome!", "https://ChatBot-App.alyssadsouza.repl.co/");
+        console.log(message.reply);
+      });
+      return false
+    };
+
+  </script>
+
+{% endblock %}

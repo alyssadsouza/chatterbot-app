@@ -1,0 +1,79 @@
+body {
+  margin:20px;
+  font-family: sans-serif;
+  background-color: aliceblue;
+  color:rgb(50,50,50);
+}
+
+@keyframes slidein {
+  from {top:40%;}
+  to {top:30%;}
+}
+
+@keyframes typewriter {
+  from {width:0%;white-space: nowrap;}
+  to {width:80%;white-space: normal;}
+}
+
+@keyframes fadein {
+  from{opacity:0%;}
+  to{opacity:100%;}
+}
+
+#bot-msg {
+  position:absolute;
+  left:50%;
+  top:30%;
+  transform: translate(-50%,-50%);
+}
+
+#bot-msg-h1 {
+  font-size: 48px;
+}
+
+.slide-in {
+  animation-name: slidein; 
+  animation-duration: 1s;
+}
+
+.fade-in {
+  text-align: center;
+  animation: fadein 0.25s;
+
+}
+
+.typewriter {
+  text-align: center;
+  overflow: hidden;
+  animation: typewriter 5s steps(40, end);
+}
+
+#user-input {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%);
+}
+
+#user-input #text-box {
+  font-size: 36px;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left:50px;
+}
+
+#submit {
+  display: none;
+}
+
+#terminal {
+  font-size: 72px;
+}
+
+li {
+  list-style-type: none;
+  background-size:50px;
+  background-image: url('https://static.thenounproject.com/png/1480285-200.png');
+  background-repeat: no-repeat;
+}
